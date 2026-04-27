@@ -62,24 +62,49 @@ This tests whether the skill avoids making inappropriate business decisions and 
 
 ## What the script does
 
-The Python script:
-- loads and validates the CSV file
-- checks required columns
-- cleans and normalizes labels
-- computes evaluation metrics (accuracy, precision, recall, F1)
-- identifies misclassified reviews
-- outputs a structured evaluation report
+The Python script performs the core deterministic evaluation workflow:
 
-This ensures accurate and consistent results that cannot be achieved through natural language alone.
+- It loads and validates the CSV file, confirming that all 120 rows are readable and correctly formatted.
+
+- It checks that required columns (`review_text`, `true_label`, `predicted_label`) are present before processing.
+
+- It cleans and normalizes labels (e.g., converting text to lowercase) to ensure consistency across the dataset.
+
+- It computes evaluation metrics, including:
+  - Accuracy: 87.50% (105 / 120 correct predictions)
+  - Macro F1 score: 0.875
+  - Precision and recall for both positive and negative classes
+
+- It builds a confusion matrix showing detailed prediction outcomes, such as:
+  - 8 false positives and 7 false negatives, indicating balanced error distribution
+
+- It identifies and extracts misclassified reviews (15 total), including examples like:
+  - "Not great" (true: negative, predicted: positive)
+  - "Arrived late but still warm" (mixed sentiment misclassification)
+
+- It outputs a structured evaluation report, including overall metrics, per-class performance, per-platform accuracy, and error pattern analysis.
+
+This script ensures accurate, repeatable, and quantitative evaluation, which cannot be reliably achieved through natural language reasoning alone.
 
 ---
 
 ## What worked well
 
-- The skill was correctly discovered and activated by the agent
-- The Python script handled the deterministic computation reliably
-- The integration between the skill and the agent was smooth
-- The output was clear, structured, and useful for analysis
+- The skill was correctly discovered and activated by the agent based on natural language prompts. 
+For example, when I asked "Evaluate the sentiment classification performance of this CSV file: restaurant_reviews_120.csv", 
+the agent automatically triggered the correct skill without manual intervention.
+
+- The Python script handled deterministic computation reliably. 
+It processed all 120 reviews and produced stable metrics, 
+including an accuracy of 87.50% (105 / 120 correct predictions) and a macro F1 score of 0.875.
+
+- The integration between the skill and the agent was smooth. 
+The agent correctly read the CSV structure, executed the script, 
+and returned a full evaluation report including confusion matrix, per-class metrics, and platform-level accuracy.
+
+- The output was clear, structured, and useful for analysis. 
+For example, the system identified 15 misclassified reviews and grouped them into patterns 
+such as sarcasm ("Absolutely love getting cold fries after waiting forever") and negation ("Not great"), which helps explain model weaknesses.
 
 ---
 
