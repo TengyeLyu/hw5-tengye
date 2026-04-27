@@ -90,21 +90,17 @@ This script ensures accurate, repeatable, and quantitative evaluation, which can
 
 ## What worked well
 
-- The skill was correctly discovered and activated by the agent based on natural language prompts. 
-For example, when I asked "Evaluate the sentiment classification performance of this CSV file: restaurant_reviews_120.csv", 
-the agent automatically triggered the correct skill without manual intervention.
+- The skill was correctly discovered and activated by the agent using natural language prompts. For example, when I asked "Evaluate the sentiment classification performance of this CSV file: restaurant_reviews_120.csv", the agent immediately recognized the task and triggered the restaurant-review-evaluator skill without requiring explicit instructions.
 
-- The Python script handled deterministic computation reliably. 
-It processed all 120 reviews and produced stable metrics, 
-including an accuracy of 87.50% (105 / 120 correct predictions) and a macro F1 score of 0.875.
+- The script handled the deterministic computation reliably and consistently. It successfully processed all 120 reviews and produced stable evaluation results, including an accuracy of 87.50% (105 / 120 correct predictions) and a macro F1 score of 0.875. Re-running the script produced identical results, confirming correctness.
 
-- The integration between the skill and the agent was smooth. 
-The agent correctly read the CSV structure, executed the script, 
-and returned a full evaluation report including confusion matrix, per-class metrics, and platform-level accuracy.
+- The integration between the agent and the script worked smoothly as a pipeline. The agent first inspected the CSV structure, then executed the Python script, and finally formatted the output into a structured report. This shows a clear separation of responsibilities: the agent orchestrates, while the script computes.
 
-- The output was clear, structured, and useful for analysis. 
-For example, the system identified 15 misclassified reviews and grouped them into patterns 
-such as sarcasm ("Absolutely love getting cold fries after waiting forever") and negation ("Not great"), which helps explain model weaknesses.
+- The system handled edge cases correctly. When prompted with "some rows may have missing labels", the agent re-checked the dataset and confirmed that all 120 rows had both `true_label` and `predicted_label`, demonstrating robustness and validation behavior.
+
+- The output was clear, structured, and analytically useful. The report included a confusion matrix (8 false positives, 7 false negatives), per-class metrics, and per-platform accuracy (e.g., Yelp 96.67%, DoorDash 83.33%). This makes it easy to understand both overall performance and detailed weaknesses.
+
+- The system also provided meaningful error analysis. It identified 15 misclassified reviews and grouped them into interpretable patterns such as sarcasm ("Absolutely love getting cold fries after waiting forever"), negation ("Not great"), and mixed sentiment ("Arrived late but still warm"), which helps explain model limitations.
 
 ---
 
