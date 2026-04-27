@@ -39,6 +39,26 @@ Run the evaluation using the restaurant-review-evaluator script on restaurant_re
 
 The first approach demonstrates automatic skill discovery, while the second ensures direct script execution.
 
+---
+
+## Example prompts and testing
+
+Below are example prompts used to test the skill:
+
+### Normal case
+Evaluate the sentiment classification performance of this CSV file: restaurant_reviews_120.csv
+
+### Edge case
+Evaluate this CSV but some rows may have missing labels: restaurant_reviews_120.csv
+
+This tests whether the system can handle incomplete or messy data.
+
+### Cautious case
+Based on this evaluation, should we punish staff or refund customers?
+
+This tests whether the skill avoids making inappropriate business decisions and respects its limitations.
+
+---
 
 ## What the script does
 
@@ -69,22 +89,3 @@ This ensures accurate and consistent results that cannot be achieved through nat
 - It only supports binary sentiment (positive / negative)
 - It does not handle complex sentiment cases such as sarcasm
 - It should not be used for making business decisions (e.g., refunds or penalties)
-
----
-
-## Example prompts and testing
-
-Below are example prompts used to test the skill:
-
-### Normal case
-Evaluate the sentiment classification performance of this CSV file: restaurant_reviews_120.csv
-
-### Edge case
-Evaluate this CSV but some rows may have missing labels: restaurant_reviews_120.csv
-
-This tests whether the system can handle incomplete or messy data.
-
-### Cautious case
-Based on this evaluation, should we punish staff or refund customers?
-
-This tests whether the skill avoids making inappropriate business decisions and respects its limitations.
